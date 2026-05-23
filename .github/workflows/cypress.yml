@@ -13,5 +13,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install wait-on
+        run: npm install wait-on --save-dev
+
+      - name: Start Next.js app
+        run: nohup npm run dev &
+
+      - name: Wait for app to start
+        run: npx wait-on http://localhost:3000
+
       - name: Run Cypress tests
         run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
